@@ -1,0 +1,40 @@
+<%- include('../layout/head.ejs') %> 
+
+<body>
+   <%- include('../layout/navigation.ejs') %>
+ 
+   
+
+    <% if (hasProduct) { %>
+  <div class="grid">
+    <% for(let product of prods) { %>
+      <article class="card product-item">
+        <header class="card__header">
+          <h1 class="product__title"><%= product.title %></h1>
+        </header>
+        <div class="card__image">
+          <img src="/<%= product.imageUrl %>" alt="<%= product.title %>">
+        </div>
+        <div class="card__content">
+          <h2 class="product__price">$<%= product.price %></h2>
+          <p class="product__description"><%= product.description %></p>
+        </div>
+        <div class="card__action">
+          <form action="/cart" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button type="submit" class="btn">Add to cart</button>
+            <input type="hidden" name="productId" value="<%= product._id %>">
+         </form>
+   
+        </div>
+        
+      </article>
+      <% } %>
+      <%- include('../layout/pagination.ejs',{currentPage: currentPage,nextPage: nextPage, hasNextPage: hasNextPage,
+        hasPreviousPage: hasPreviousPage, lastPage: lastPage, previousPage: previousPage}) %>
+  </div>
+<% } else { %>
+  <h1>Product is not available</h1>
+<% } %>
+</body>
+</html>

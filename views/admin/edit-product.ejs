@@ -1,0 +1,34 @@
+<% include('../layout/head.ejs') %>
+<body>
+   <%- include('../layout/navigation.ejs') %>
+   <% if (errorMessage) { %>
+    <div><%= errorMessage %></div>
+    <% } %>
+    <main>
+        <form action="/admin/<% if (edit) { %>edit-product<% } else { %>prods<% } %>" method="POST" enctype="multipart/form-data">
+            <div class="form-control">
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" value="<% if (edit || hasError) { %><%=product.title %><% } %>">
+        </div>
+        <div class="form-control">
+            <label for="image">Image Url</label>
+            <input type="file" name="image" id="image">
+        </div>
+        <div class="form-control">
+            <label for="price">priceI</label>
+            <input type="number" name="price" id="price" step="0.01" value="<% if (edit || hasError) { %><%=product.price %><% } %>"> 
+        </div>
+        <div class="form-control">
+            <label for="description">Description</label>
+            <textarea type="text" row="5" name="description" id="description"><% if (edit || hasError) { %><%=product.description %><% } %></textarea>
+        </div>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        
+            <button type="submit"><% if(edit) { %>Update Product<% }else{ %>Add Product<% } %></button>
+            <% if(edit) { %>
+               <input type="hidden" value="<%= product._id %>" name="productId">
+               <% } %>
+        </form>
+    </main>
+</body>
+</html>

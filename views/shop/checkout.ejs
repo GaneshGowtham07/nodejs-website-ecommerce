@@ -1,0 +1,18 @@
+<%- include('../layout/head.ejs') %> 
+
+<body>
+   <%- include('../layout/navigation.ejs') %>
+   <% if(product.length>0) { %>
+      <ul>
+      <% product.forEach(p => { %>
+         <div>
+         <li> <p><%= p.productId.title %>(<%= p.quantity %>)</p></li>
+         </div>
+         <%  } ) %>
+      </ul>
+      <div>
+         <h2>$<%= totalPrice %></h2>
+      </div>
+      <% } %>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<%- include('../layout/head.ejs') %> 
+
+<body>
+   <%- include('../layout/navigation.ejs') %>
+
+   <div class="details">
+      <h1><%= product.title %></h1>
+      <hr>
+      <img src="/<%= product.imageUri %>" alt="<%= product.title %> "/>
+      <br>
+      <h2><%= product.price %></h2>
+      <p><%= product.description %></p>
+      <form action="/cart" method="POST">
+         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+         <button type="submit" class="btn">Add to cart</button>
+         <input  name="productId" value="<%= product._id %>">
+      </form>
+
+   </div>
+</body>
+</html>
